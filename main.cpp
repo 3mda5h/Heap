@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "heap.h"
+#include "Heap.h"
 
 using namespace std;
 
@@ -8,6 +8,7 @@ int main()
 {
   char input[10000];
   int numbers[100];
+  Heap* heap = new Heap();
   while(strcmp(input, "quit") != 0)
   {
     cout << "Enter INPUT, OUTPUT, DISPLAY, or QUIT" << endl;
@@ -51,12 +52,12 @@ int main()
       {
         if(numbers[i] != 0)
         {
-          heap::    
-          
-          //for debugging
+          heap->insert(numbers[i]);
           cout << numbers[i] << ", ";
         }
       }
+      cout << "outputting: " << endl;
+      heap->output(0);
     }
   }
 }
