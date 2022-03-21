@@ -5,7 +5,7 @@ using namespace std;
 
 int main() 
 {
-  char* input[10000];
+  char input[10000];
   int numbers[1000];
   while(strcmp(input, "quit") != 0)
   {
@@ -27,13 +27,13 @@ int main()
         int k = 0;
         for(int i = 0; i < strlen(input); i++)
         {
-          if(input[i] != " ")
+          if(strcmp(input[i], ' ') != 0)
           {
-            number[j] = input[i];
-            j++
+            number[j] = &input[i];
+            j++;
           }
-          if(input[i] == " ")
-          {
+          if(input[i] == ' ')
+          
             numbers[k] = atoi(number);
             k++;
           }
