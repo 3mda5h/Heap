@@ -17,5 +17,6 @@ class Heap
   int* heap; //pointer to array of node pointers 
   void insert(int value);
   void output(int index);
+  void display();
 };
 #endif

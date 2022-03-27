@@ -6,37 +6,59 @@ using namespace std;
 
 Heap::Heap()
 {
-  max = NULL;
-  heap = new Node*[1000];
+  heap = new int[1000];
 }
 
-void Heap::insert(Heap::Node* node)
+//insert number into the heap
+void Heap::insert(int newNumber)
 {
-  if(max == NULL) //if first node inserted
+  //find empty spot at end of tree to insert new number
+  int i = 999;
+  while(heap[i-1] == 0 && i != 0)
   {
-    max = node; //do i even need this ?
-    heap[0] = node;
+    i--;    
   }
-  else
+  //i is now first empty spot in array
+  cout << "index " << i << " is the first empty spot" << endl;
+  if(i == 0) //if this is the first number inserted into array 
   {
-    //children: 2i+1, 2i+2 parent: ⌊(i−1)/2⌋, L = floor
-    int i = 999;
-    int parentI = (int)floor((i-1)/2); //parent index
-    while(node->value > heap[parentI]->value && i > -1)
-    {
-      //swap parent and current node 
-      Node* temp = heap[parentI];
-      heap[parentI] = node; 
-      heap[i] = temp;
-      i--;
-      parentI = (int)floor((i-1)/2);
-    }
+    heap[i] = newNumber;
+    return;
+  }
+  //children: 2i+1, 2i+2 parent: ⌊(i−1)/2⌋, L = floor
+  int parentI = (int)floor((i-1)/2); //parent index
+  cout << "the parent of this index is index " <<parentI << " (" << heap[parentI] << ")" << endl;
+  heap[i] = newNumber;
+  if(heap[i] < heap[parentI]) 
+  {
+    return; //parent greater than child, heap property maintained
+  }
+  while(newNumber > heap[parentI] && i > -1) //while child is greater than parent
+  {
+    //swap parent and current node 
+    cout << "swapping " << heap[i] << " with parent " << heap[parentI] << endl;
+    int temp = heap[parentI];
+    heap[parentI] = newNumber; 
+    heap[i] = temp;
+    i--;
+    parentI = (int)floor((i-1)/2);
   }
 }
 
+//print out numbers in order from greatest to smallest
 void Heap::output(int index)
 {
-  cout << heap[index]->value << ", "; //print value at current index
-  output((2 * index) + 1); //call function for right child
-  output(2 * index); //call function for left child
+  if(index < 1000 && heap[index] != 0)
+  {
+    cout << heap[index] << ", "; //print value at current index
+    output((2 * index) + 1); //call function for right child
+    output((2 * index) + 2); //call function for left child
+  }
+  else return;
+}
+
+//visually display heap as a tree using tabs
+void Heap::display()
+{
+  
 }

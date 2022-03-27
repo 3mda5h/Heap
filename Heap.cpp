@@ -9,29 +9,43 @@ Heap::Heap()
   heap = new int[1000];
 }
 
-void Heap::insert(int value)
+//insert number into the heap
+void Heap::insert(int newNumber)
 {
-  if(heap[0] == NULL) //if first node inserted
+  //find empty spot at end of tree to insert new number
+  int i = 999;
+  while(heap[i-1] == 0 && i != 0)
   {
-    heap[0] = value;
+    i--;    
   }
-  else
+  //i is now first empty spot in array
+  cout << "index " << i << " is the first empty spot" << endl;
+  if(i == 0) //if this is the first number inserted into array 
   {
-    //children: 2i+1, 2i+2 parent: ⌊(i−1)/2⌋, L = floor
-    int i = 999;
-    int parentI = (int)floor((i-1)/2); //parent index
-    while(value > heap[parentI] && i > -1)
-    {
-      //swap parent and current node 
-      int* temp = &heap[parentI];
-      heap[parentI] = value; 
-      heap[i] = *temp;
-      i--;
-      parentI = (int)floor((i-1)/2);
-    }
+    heap[i] = newNumber;
+    return;
+  }
+  //children: 2i+1, 2i+2 parent: ⌊(i−1)/2⌋, L = floor
+  int parentI = (int)floor((i-1)/2); //parent index
+  cout << "the parent of this index is index " <<parentI << " (" << heap[parentI] << ")" << endl;
+  heap[i] = newNumber;
+  if(heap[i] < heap[parentI]) 
+  {
+    return; //parent greater than child, heap property maintained
+  }
+  while(newNumber > heap[parentI] && i > -1) //while child is greater than parent
+  {
+    //swap parent and current node 
+    cout << "swapping " << heap[i] << " with parent " << heap[parentI] << endl;
+    int temp = heap[parentI];
+    heap[parentI] = newNumber; 
+    heap[i] = temp;
+    i--;
+    parentI = (int)floor((i-1)/2);
   }
 }
 
+//print out numbers in order from greatest to smallest
 void Heap::output(int index)
 {
   if(index < 1000 && heap[index] != 0)
@@ -41,4 +55,10 @@ void Heap::output(int index)
     output((2 * index) + 2); //call function for left child
   }
   else return;
+}
+
+//visually display heap as a tree using tabs
+void Heap::display()
+{
+  
 }

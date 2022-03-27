@@ -47,17 +47,26 @@ int main()
           }
         }
       }
-      cout << "input arrary contains:" << endl;
+      /*cout << "input arrary contains:" << endl;
+      for(int i = 0; i < 100; i++)
+      {
+        if(numbers[i] != 0)
+        {
+          cout << numbers[i] << ", ";
+        }
+      }*/
+      cout << endl;
       for(int i = 0; i < 100; i++)
       {
         if(numbers[i] != 0)
         {
           heap->insert(numbers[i]);
-          cout << numbers[i] << ", ";
         }
       }
+
       cout << "outputting: " << endl;
       heap->output(0);
+      cout << endl;
     }
   }
 }
