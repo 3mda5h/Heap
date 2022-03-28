@@ -60,5 +60,30 @@ void Heap::output(int index)
 //visually display heap as a tree using tabs
 void Heap::display()
 {
+  //start at the far right bottom end of the tree
+  //print it endl
+  //pint its parent endl
+  //print left child of that parent endl
+  //print parent of parent endl
+
+  /* un ejemplo de como quedaría: 
+
+            84
+        89
+            82  
+    99
+            81
+        96  
+            80
+100
+            89
+        94
+            90  
+    98
+            91
+        95
+            87
+
+*/
   
 }

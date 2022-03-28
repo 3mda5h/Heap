@@ -46,19 +46,85 @@ void Heap::insert(int newNumber)
 }
 
 //print out numbers in order from greatest to smallest
-void Heap::output(int index)
+void Heap::output()
 {
-  if(index < 1000 && heap[index] != 0)
+  int output[100];
+  int outputi = 0;
+  for(int j = 0; j < 100; j++) output[j] = 0;
+
+  do
+  {
+    //find last element
+    int last = 999;
+    while(heap[last] == 0 && last != 0)
+    {
+      last--;    
+    }
+    //replace root with last element
+    heap[0] = heap[last];
+    heap[last] = 0;
+    downHeap(0);
+    output[outputi] = heap[0];
+    outputi++;
+  } while(last != 0);
+
+  /*if(index < 1000 && heap[index] != 0)
   {
     cout << heap[index] << ", "; //print value at current index
     output((2 * index) + 1); //call function for right child
     output((2 * index) + 2); //call function for left child
   }
-  else return;
+  else return;*/
+}
+void Heap::downHeap(int parent)
+{
+  int rightChild = heap[2*i + 1];
+  int leftChild = heap[2*i + 2];
+  if(heap[parent] < rightChild && rightChild > leftChild)
+  {
+    //swap parent with right child
+    int temp = heap[parent];
+    heap[parent] = rightChild;
+    heap[2*i + 1] = temp;
+    swap(2*i + 1);
+  }
+  if(heap[parent] < leftChild && leftChild > rightChild)
+  {
+    //swap parent (heap[i]) with right child
+    int temp = heap[parent];
+    heap[parent] = leftChild;
+    heap[2*i + 2] = temp;
+    swap(2*i + 2);
+  }
 }
 
 //visually display heap as a tree using tabs
 void Heap::display()
 {
+  //start at the far right bottom end of the tree
+  //print it endl
+  //pint its parent endl
+  //print left child of that parent endl
+  //print parent of parent endl 
+
+  /* un ejemplo de como quedaría: 
+
+            84
+        89
+            82  
+    99
+            81
+        96  
+            80
+100
+            89
+        94
+            90  
+    98
+            91
+        95
+            87
+
+*/
   
 }
