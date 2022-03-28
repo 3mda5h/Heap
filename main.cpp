@@ -24,8 +24,13 @@ int main()
       }
       if(strcmp(input, "console") == 0)
       {
+        heap->clear();
         consoleInput(heap);
       }
+    }
+    if(strcmp(input, "output") == 0)
+    {
+      heap->output();
     }
   }
 }

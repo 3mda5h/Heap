@@ -6,20 +6,25 @@ using namespace std;
 
 Heap::Heap()
 {
-  heap = new int[1000];
+  heap = new int[100];
+}
+
+void Heap::clear()
+{
+  for(int i = 0; i < 100 ; i++) heap[i] = 0;
 }
 
 //insert number into the heap
 void Heap::insert(int newNumber)
 {
   //find empty spot at end of tree to insert new number
-  int i = 999;
+  int i = 99;
   while(heap[i-1] == 0 && i != 0)
   {
     i--;    
   }
   //i is now first empty spot in array
-  cout << "index " << i << " is the first empty spot" << endl;
+  //cout << "index " << i << " is the first empty spot" << endl;
   if(i == 0) //if this is the first number inserted into array 
   {
     heap[i] = newNumber;
@@ -27,7 +32,7 @@ void Heap::insert(int newNumber)
   }
   //children: 2i+1, 2i+2 parent: ⌊(i−1)/2⌋, L = floor
   int parentI = (int)floor((i-1)/2); //parent index
-  cout << "the parent of this index is index " <<parentI << " (" << heap[parentI] << ")" << endl;
+  //cout << "the parent of this index is index " <<parentI << " (" << heap[parentI] << ")" << endl;
   heap[i] = newNumber;
   if(heap[i] < heap[parentI]) 
   {
@@ -36,7 +41,7 @@ void Heap::insert(int newNumber)
   while(newNumber > heap[parentI] && i > -1) //while child is greater than parent
   {
     //swap parent and current node 
-    cout << "swapping " << heap[i] << " with parent " << heap[parentI] << endl;
+    //cout << "swapping " << heap[i] << " with parent " << heap[parentI] << endl;
     int temp = heap[parentI];
     heap[parentI] = newNumber; 
     heap[i] = temp;
@@ -52,49 +57,67 @@ void Heap::output()
   int outputi = 0;
   for(int j = 0; j < 100; j++) output[j] = 0;
 
+  //find last element
+  int last = 99;
+  while(heap[last] == 0 && last != 0)
+  {
+    last--;    
+  }
+  //add root to output
+  output[outputi] = heap[0];
+  outputi++;
   do
   {
-    //find last element
-    int last = 999;
-    while(heap[last] == 0 && last != 0)
-    {
-      last--;    
-    }
+    
     //replace root with last element
     heap[0] = heap[last];
+    cout << "root is now " << heap[0] << endl;
     heap[last] = 0;
-    downHeap(0);
+    cout << "root after downHeap is " << heap[0] << endl;
+    downHeap(0); //re-establish heap property
+    last--;
+    //add root to output
     output[outputi] = heap[0];
     outputi++;
   } while(last != 0);
 
-  /*if(index < 1000 && heap[index] != 0)
+  for(int i = 0; i < 100; i++)
   {
-    cout << heap[index] << ", "; //print value at current index
-    output((2 * index) + 1); //call function for right child
-    output((2 * index) + 2); //call function for left child
+    if(output[i] != 0)
+    {
+      cout << output[i] << ", ";
+    }
   }
-  else return;*/
+  cout << endl;
 }
-void Heap::downHeap(int parent)
+
+//if parent is not greater than both children, replace parent with greatest child
+void Heap::downHeap(int i)
 {
-  int rightChild = heap[2*i + 1];
-  int leftChild = heap[2*i + 2];
-  if(heap[parent] < rightChild && rightChild > leftChild)
+  int parent = heap[i];
+  int rightChild = heap[2*parent + 1];
+  int leftChild = heap[2*parent + 2];
+  if((parent < rightChild || parent < leftChild) && rightChild > leftChild)
   {
     //swap parent with right child
-    int temp = heap[parent];
-    heap[parent] = rightChild;
-    heap[2*i + 1] = temp;
-    swap(2*i + 1);
+    heap[i] = rightChild;
+    cout << "heap[i]: " << leftChild << endl;
+    cout << "parent: " << parent << endl;
+    heap[2*parent + 1] = parent;
+    downHeap(2*parent + 1);
   }
-  if(heap[parent] < leftChild && leftChild > rightChild)
+  else if((parent < rightChild || parent < leftChild) && leftChild > rightChild)
   {
-    //swap parent (heap[i]) with right child
-    int temp = heap[parent];
-    heap[parent] = leftChild;
-    heap[2*i + 2] = temp;
-    swap(2*i + 2);
+    //swap parent with left child
+    heap[i] = leftChild;
+    cout << "heap[i]: " << leftChild << endl;
+    cout << "parent: " << parent << endl;
+    heap[2*parent + 2] = parent;
+    downHeap(2*parent + 2);
+  }
+  else if(parent > leftChild && parent > rightChild)
+  {
+    return;
   }
 }
 
