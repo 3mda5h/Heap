@@ -32,6 +32,10 @@ int main()
     {
       heap->output();
     }
+    if(strcmp(input, "display") == 0)
+    {
+      heap->display(0);
+    }
   }
 }
 

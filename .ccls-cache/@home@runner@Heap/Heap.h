@@ -15,8 +15,10 @@ class Heap
   Heap();
   //Node* max; //root
   int* heap; //pointer to array of node pointers 
+  void clear();
   void insert(int value);
-  void output(int index);
-  void display();
+  void output();
+  void downHeap(int parent);
+  void display(int index);
 };
 #endif

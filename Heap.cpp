@@ -17,6 +17,7 @@ void Heap::clear()
 //insert number into the heap
 void Heap::insert(int newNumber)
 {
+  cout << "inserting " << newNumber << endl;
   //find empty spot at end of tree to insert new number
   int i = 99;
   while(heap[i-1] == 0 && i != 0)
@@ -24,7 +25,6 @@ void Heap::insert(int newNumber)
     i--;    
   }
   //i is now first empty spot in array
-  //cout << "index " << i << " is the first empty spot" << endl;
   if(i == 0) //if this is the first number inserted into array 
   {
     heap[i] = newNumber;
@@ -32,20 +32,14 @@ void Heap::insert(int newNumber)
   }
   //children: 2i+1, 2i+2 parent: ⌊(i−1)/2⌋, L = floor
   int parentI = (int)floor((i-1)/2); //parent index
-  //cout << "the parent of this index is index " <<parentI << " (" << heap[parentI] << ")" << endl;
   heap[i] = newNumber;
-  if(heap[i] < heap[parentI]) 
-  {
-    return; //parent greater than child, heap property maintained
-  }
-  while(newNumber > heap[parentI] && i > -1) //while child is greater than parent
+  while(heap[i] > heap[parentI] && i > -1) //while child is greater than parent
   {
     //swap parent and current node 
-    //cout << "swapping " << heap[i] << " with parent " << heap[parentI] << endl;
     int temp = heap[parentI];
     heap[parentI] = newNumber; 
     heap[i] = temp;
-    i--;
+    i = parentI; //move current index to parent index
     parentI = (int)floor((i-1)/2);
   }
 }
@@ -68,7 +62,6 @@ void Heap::output()
   outputi++;
   do
   {
-    
     //replace root with last element
     heap[0] = heap[last];
     cout << "root is now " << heap[0] << endl;
@@ -95,16 +88,16 @@ void Heap::output()
 void Heap::downHeap(int i)
 {
   int parent = heap[i];
-  int rightChild = heap[2*parent + 1];
-  int leftChild = heap[2*parent + 2];
+  int rightChild = heap[(2*parent) + 1];
+  int leftChild = heap[(2*parent) + 2];
   if((parent < rightChild || parent < leftChild) && rightChild > leftChild)
   {
     //swap parent with right child
     heap[i] = rightChild;
     cout << "heap[i]: " << leftChild << endl;
     cout << "parent: " << parent << endl;
-    heap[2*parent + 1] = parent;
-    downHeap(2*parent + 1);
+    heap[(2*parent) + 1] = parent;
+    downHeap((2*parent) + 1);
   }
   else if((parent < rightChild || parent < leftChild) && leftChild > rightChild)
   {
@@ -112,8 +105,8 @@ void Heap::downHeap(int i)
     heap[i] = leftChild;
     cout << "heap[i]: " << leftChild << endl;
     cout << "parent: " << parent << endl;
-    heap[2*parent + 2] = parent;
-    downHeap(2*parent + 2);
+    heap[(2*parent) + 2] = parent;
+    downHeap((2*parent) + 2);
   }
   else if(parent > leftChild && parent > rightChild)
   {
@@ -122,8 +115,16 @@ void Heap::downHeap(int i)
 }
 
 //visually display heap as a tree using tabs
-void Heap::display()
+void Heap::display(int i)
 {
+  //temporary display
+  if(heap[i] != 0)
+  {
+    cout << "parent " << heap[i] << " has children " << heap[(2*i) + 1] << " and " << heap[(2*i) + 2] << endl;
+    display((2*i) + 1);
+    display((2*i) + 2);
+  }
+
   //start at the far right bottom end of the tree
   //print it endl
   //pint its parent endl

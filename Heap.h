@@ -19,6 +19,6 @@ class Heap
   void insert(int value);
   void output();
   void downHeap(int parent);
-  void display();
+  void display(int index);
 };
 #endif
