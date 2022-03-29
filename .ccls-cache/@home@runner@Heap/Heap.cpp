@@ -17,7 +17,6 @@ void Heap::clear()
 //insert number into the heap
 void Heap::insert(int newNumber)
 {
-  cout << "inserting " << newNumber << endl;
   //find empty spot at end of tree to insert new number
   int i = 99;
   while(heap[i-1] == 0 && i != 0)
@@ -125,14 +124,14 @@ void Heap::display(int i)
     display((2*i) + 2);
   }
 
-  //start at the far right bottom end of the tree
-  //print it endl
-  //pint its parent endl
-  //print left child of that parent endl
-  //print parent of parent endl 
-
-  /* un ejemplo de como quedaría: 
-
+  /*
+  start at the far right bottom end of the tree
+  print it 
+  pint its parent 
+  print left child of that parent 
+  print parent of parent 
+  ??
+  
             84
         89
             82  

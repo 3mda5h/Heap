@@ -17,7 +17,6 @@ void Heap::clear()
 //insert number into the heap
 void Heap::insert(int newNumber)
 {
-  cout << "inserting " << newNumber << endl;
   //find empty spot at end of tree to insert new number
   int i = 99;
   while(heap[i-1] == 0 && i != 0)
@@ -52,7 +51,7 @@ void Heap::output()
   for(int j = 0; j < 100; j++) output[j] = 0;
 
   //find last element
-  int last = 99;
+  int last = 99;//index of last element in array/tree
   while(heap[last] == 0 && last != 0)
   {
     last--;    
@@ -64,15 +63,16 @@ void Heap::output()
   {
     //replace root with last element
     heap[0] = heap[last];
-    cout << "root is now " << heap[0] << endl;
-    heap[last] = 0;
-    cout << "root after downHeap is " << heap[0] << endl;
-    downHeap(0); //re-establish heap property
-    last--;
+    if(last > 0)
+    {
+      heap[last] = 0;
+      downHeap(0); //re-establish heap property
+    }
     //add root to output
     output[outputi] = heap[0];
     outputi++;
-  } while(last != 0);
+    last--;
+  } while(last > 0);
 
   for(int i = 0; i < 100; i++)
   {
@@ -88,25 +88,21 @@ void Heap::output()
 void Heap::downHeap(int i)
 {
   int parent = heap[i];
-  int rightChild = heap[(2*parent) + 1];
-  int leftChild = heap[(2*parent) + 2];
+  int rightChild = heap[(2*i) + 1];
+  int leftChild = heap[(2*i) + 2];
   if((parent < rightChild || parent < leftChild) && rightChild > leftChild)
   {
     //swap parent with right child
     heap[i] = rightChild;
-    cout << "heap[i]: " << leftChild << endl;
-    cout << "parent: " << parent << endl;
-    heap[(2*parent) + 1] = parent;
-    downHeap((2*parent) + 1);
+    heap[(2*i) + 1] = parent;
+    downHeap((2*i) + 1);
   }
   else if((parent < rightChild || parent < leftChild) && leftChild > rightChild)
   {
     //swap parent with left child
     heap[i] = leftChild;
-    cout << "heap[i]: " << leftChild << endl;
-    cout << "parent: " << parent << endl;
-    heap[(2*parent) + 2] = parent;
-    downHeap((2*parent) + 2);
+    heap[(2*i) + 2] = parent;
+    downHeap((2*i) + 2);
   }
   else if(parent > leftChild && parent > rightChild)
   {
@@ -125,14 +121,14 @@ void Heap::display(int i)
     display((2*i) + 2);
   }
 
-  //start at the far right bottom end of the tree
-  //print it endl
-  //pint its parent endl
-  //print left child of that parent endl
-  //print parent of parent endl 
-
-  /* un ejemplo de como quedaría: 
-
+  /*
+  start at the far right bottom end of the tree
+  print it 
+  pint its parent 
+  print left child of that parent 
+  print parent of parent 
+  ??
+  
             84
         89
             82  
