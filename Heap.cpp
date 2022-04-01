@@ -63,7 +63,7 @@ void Heap::output()
   {
     //replace root with last element
     heap[0] = heap[last];
-    if(last > 0)
+    if(last > 0) 
     {
       heap[last] = 0;
       downHeap(0); //re-establish heap property
@@ -111,15 +111,16 @@ void Heap::downHeap(int i)
 }
 
 //visually display heap as a tree using tabs
-void Heap::display(int i)
+void Heap::display(int parentI, int depth)
 {
   //temporary display
-  if(heap[i] != 0)
+  if(heap[parentI] != 0)
   {
-    cout << "parent " << heap[i] << " has children " << heap[(2*i) + 1] << " and " << heap[(2*i) + 2] << endl;
-    display((2*i) + 1);
-    display((2*i) + 2);
+    cout << "parent " << heap[parentI] << " has children " << heap[(2*parentI) + 1] << " and " << heap[(2*parentI) + 2] << endl;
+    display((2*parentI) + 1, 0);
+    display((2*parentI) + 2, 0);
   }
+  
 
   /*
   start at the far right bottom end of the tree
