@@ -44,7 +44,7 @@ void Heap::insert(int newNumber)
 }
 
 //print out numbers in order from greatest to smallest
-void Heap::output()
+void Heap::sort()
 {
   int output[100];
   int outputi = 0;
@@ -84,7 +84,7 @@ void Heap::output()
   cout << endl;
 }
 
-//if parent is not greater than both children, replace parent with greatest child
+//if parent is not greater than both children, replace swap parent with greatest child
 void Heap::downHeap(int i)
 {
   int parent = heap[i];
@@ -104,6 +104,13 @@ void Heap::downHeap(int i)
     heap[(2*i) + 2] = parent;
     downHeap((2*i) + 2);
   }
+  else if(parent < rightChild || parent < leftChild) //both children are the value so there's no greater child 
+  {
+    //swap parent with right child
+    heap[i] = rightChild;
+    heap[(2*i) + 1] = parent;
+    downHeap((2*i) + 1);
+  }
   else if(parent > leftChild && parent > rightChild)
   {
     return;
@@ -111,24 +118,31 @@ void Heap::downHeap(int i)
 }
 
 //visually display heap as a tree using tabs
-void Heap::display(int parentI, int depth)
+void Heap::display(int parentI, int level)
 {
   //temporary display
-  if(heap[parentI] != 0)
+  /*if(heap[parentI] != 0)
   {
     cout << "parent " << heap[parentI] << " has children " << heap[(2*parentI) + 1] << " and " << heap[(2*parentI) + 2] << endl;
     display((2*parentI) + 1, 0);
     display((2*parentI) + 2, 0);
+  } */
+  if((2*parentI) + 2 < 100 || heap[(2*parentI) + 1] != 0 ) //if parent has a right child
+  {
+    display((int)floor((parentI-1)/2), level++);
   }
-  
-
+  else if((2*parentI) + 1 < 100 || heap[(2*parentI) + 1] != 0 ) //if parent has left child but no right??
+  {
+    display((int)floor((parentI-1)/2), level++);
+  }
+  else
+  {
+    printTabs(level);
+    cout << heap[parentI] << endl;
+    return;
+  }
+ 
   /*
-  start at the far right bottom end of the tree
-  print it 
-  pint its parent 
-  print left child of that parent 
-  print parent of parent 
-  ??
   
             84
         89
@@ -147,5 +161,13 @@ void Heap::display(int parentI, int depth)
             87
 
 */
-  
+}
+
+//prints tabs according to level of tree that value is at
+void Heap::printTabs(int level)
+{
+  for(int i = 0; i < level+1; i++)
+  {
+    cout << "  ";    
+  }
 }

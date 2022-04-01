@@ -17,8 +17,9 @@ class Heap
   int* heap; //pointer to array of node pointers 
   void clear();
   void insert(int value);
-  void output();
+  void sort();
   void downHeap(int parent);
   void display(int parent, int depth);
+  void printTabs(int level);
 };
 #endif
