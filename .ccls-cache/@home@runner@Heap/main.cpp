@@ -27,27 +27,29 @@ int main()
         heap->clear();
         fileInput(heap);
       }
-      if(strcmp(input, "console") == 0)
+      else if(strcmp(input, "console") == 0)
       {
         heap->clear();
         consoleInput(heap);
+        cout << "Input successful" << endl;
       }
     }
-    if(strcmp(input, "sort") == 0)
+    else if(strcmp(input, "sort") == 0)
     {
       heap->sort();
     }
-    if(strcmp(input, "display") == 0)
+    else if(strcmp(input, "display") == 0)
     {
       heap->display(0, 0);
     }
+    cout << "----------" << endl;
   }
 }
 
 void consoleInput(Heap* heap)
 {
   char input[10000];
-  cout << "enter a list of numbers seperated by spaces" << endl;
+  cout << "Enter a list of numbers seperated by spaces" << endl;
   cin.getline(input, 10000);
   int j = 0;
   char currentNumber[4]; //current number
@@ -55,13 +57,11 @@ void consoleInput(Heap* heap)
   {
     if(input[i] != ' ')
     {
-      cout << "adding " << input[i] << " to currentNumber" << endl;
       currentNumber[j] = input[i]; //add current char in input to current number 
       j++; //j keeps track of where we are in currentnumber[]
     }
     if(input[i] == ' ' || i == strlen(input) - 1)//if reaches space or end of input array 
     {
-      cout << currentNumber << endl;
       heap->insert(atoi(currentNumber));
       j = 0; 
       for(int i = 0; i < 4; i++) //reset current number
@@ -77,14 +77,16 @@ void fileInput(Heap* heap)
   char input[100];
   int number;
   cout << "Name of file?" << endl;
-  cin.get(input, 100);
+  cin.getline(input, 100);
   ifstream file(input);
   if(!file.is_open())
   {
     cout << "Could not open file D:" << endl;
+    return;
   }
   while (file >> number)
   {
     heap->insert(number);
   }
+  cout << "Input successful" << endl;
 }

@@ -46,6 +46,11 @@ void Heap::insert(int newNumber)
 //print out numbers in order from greatest to smallest
 void Heap::sort()
 {
+  if(heap[0] == 0)
+  {
+    cout << "There's no input to sort D:" << endl;
+    return;
+  }
   int output[100];
   int outputi = 0;
   for(int j = 0; j < 100; j++) output[j] = 0;
