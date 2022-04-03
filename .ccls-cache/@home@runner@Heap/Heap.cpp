@@ -132,38 +132,32 @@ void Heap::display(int parentI, int level)
     display((2*parentI) + 1, 0);
     display((2*parentI) + 2, 0);
   } */
-  if((2*parentI) + 2 < 100 || heap[(2*parentI) + 1] != 0 ) //if parent has a right child
+  if(heap[parentI] != 0)
   {
-    display((int)floor((parentI-1)/2), level++);
-  }
-  else if((2*parentI) + 1 < 100 || heap[(2*parentI) + 1] != 0 ) //if parent has left child but no right??
-  {
-    display((int)floor((parentI-1)/2), level++);
-  }
-  else
-  {
+    cout << heap[parentI] << ", is at level " << level << endl;
+    display((2*parentI) + 2, level++);
     printTabs(level);
     cout << heap[parentI] << endl;
-    return;
+    display((2*parentI) + 1, level++);
   }
  
   /*
   
-            84
-        89
-            82  
-    99
-            81
-        96  
-            80
-100
-            89
-        94
-            90  
-    98
-            91
-        95
-            87
+            0
+        9
+            0  
+    400
+            4
+        70  
+            2
+1000
+            8
+        70
+            6  
+    250
+            12
+        100
+            3
 
 */
 }
@@ -173,6 +167,6 @@ void Heap::printTabs(int level)
 {
   for(int i = 0; i < level+1; i++)
   {
-    cout << "  ";    
+    cout << "    ";    
   }
 }
