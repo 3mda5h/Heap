@@ -9,6 +9,7 @@ Heap::Heap()
   heap = new int[100];
 }
 
+//sets all values in the heap to 0, for if user inputs new dataset without sorting(removing) the old one
 void Heap::clear()
 {
   for(int i = 0; i < 100 ; i++) heap[i] = 0;
@@ -24,12 +25,6 @@ void Heap::insert(int newNumber)
     i--;    
   }
   //i is now first empty spot in array
-  if(i == 0) //if this is the first number inserted into array 
-  {
-    heap[i] = newNumber;
-    return;
-  }
-  //children: 2i+1, 2i+2 parent: ⌊(i−1)/2⌋, L = floor
   int parentI = (int)floor((i-1)/2); //parent index
   heap[i] = newNumber;
   while(heap[i] > heap[parentI] && i > -1) //while child is greater than parent
@@ -38,12 +33,12 @@ void Heap::insert(int newNumber)
     int temp = heap[parentI];
     heap[parentI] = newNumber; 
     heap[i] = temp;
-    i = parentI; //move current index to parent index
+    i = parentI; 
     parentI = (int)floor((i-1)/2);
   }
 }
 
-//print out numbers in order from greatest to smallest
+//remove numbers from heap in order from greatest to least, the print out the sorted output
 void Heap::sort()
 {
   if(heap[0] == 0)
@@ -87,9 +82,10 @@ void Heap::sort()
     }
   }
   cout << endl;
+  heap[0] = 0;
 }
 
-//if parent is not greater than both children, replace swap parent with greatest child
+//if parent is not greater than both children, swap parent with greatest child
 void Heap::downHeap(int i)
 {
   int parent = heap[i];
@@ -109,7 +105,7 @@ void Heap::downHeap(int i)
     heap[(2*i) + 2] = parent;
     downHeap((2*i) + 2);
   }
-  else if(parent < rightChild || parent < leftChild) //both children are the value so there's no greater child 
+  else if(parent < rightChild || parent < leftChild) //both children are the same value so there's no greater child 
   {
     //swap parent with right child
     heap[i] = rightChild;
@@ -122,51 +118,29 @@ void Heap::downHeap(int i)
   }
 }
 
-//visually display heap as a tree using tabs
+//visually display tree using tabs
 void Heap::display(int parentI, int level)
 {
-  //temporary display
-  /*if(heap[parentI] != 0)
+  if(heap[parentI] == 0 && level == 0)
   {
-    cout << "parent " << heap[parentI] << " has children " << heap[(2*parentI) + 1] << " and " << heap[(2*parentI) + 2] << endl;
-    display((2*parentI) + 1, 0);
-    display((2*parentI) + 2, 0);
-  } */
+    cout << "Tree is empty :(" << endl;
+    return;
+  }
   if(heap[parentI] != 0)
   {
-    cout << heap[parentI] << ", is at level " << level << endl;
-    display((2*parentI) + 2, level++);
+    display((2*parentI) + 2, level + 1);
     printTabs(level);
     cout << heap[parentI] << endl;
-    display((2*parentI) + 1, level++);
+    display((2*parentI) + 1, level + 1);
   }
- 
-  /*
-  
-            0
-        9
-            0  
-    400
-            4
-        70  
-            2
-1000
-            8
-        70
-            6  
-    250
-            12
-        100
-            3
-
-*/
+  else return;
 }
 
 //prints tabs according to level of tree that value is at
 void Heap::printTabs(int level)
 {
-  for(int i = 0; i < level+1; i++)
+  for(int i = 0; i < level; i++)
   {
-    cout << "    ";    
+    cout << "     ";    
   }
 }

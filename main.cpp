@@ -46,13 +46,14 @@ int main()
   }
 }
 
+//read in list of numbers seperated by spaces from the console
 void consoleInput(Heap* heap)
 {
   char input[10000];
   cout << "Enter a list of numbers seperated by spaces" << endl;
   cin.getline(input, 10000);
   int j = 0;
-  char currentNumber[4]; //current number
+  char currentNumber[5]; //current number
   for(int i = 0; i < strlen(input); i++)
   {
     if(input[i] != ' ')
@@ -72,6 +73,7 @@ void consoleInput(Heap* heap)
   }
 }
 
+//read in list of numbers seperated by spaces from a file
 void fileInput(Heap* heap)
 {
   char input[100];
@@ -84,7 +86,7 @@ void fileInput(Heap* heap)
     cout << "Could not open file D:" << endl;
     return;
   }
-  while (file >> number)
+  while (file >> number) //reads in ints from file till end of file reached
   {
     heap->insert(number);
   }
