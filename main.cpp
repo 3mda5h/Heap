@@ -1,3 +1,7 @@
+/*Max heap - binary tree where the parent must be greater than its children. Implemented as an array. 
+User can input numbers, output them sorted from greast to least, or visually display tree
+By Emily MacPherson 4/2/22
+*/
 #include <iostream>
 #include <cstring>
 #include <fstream>

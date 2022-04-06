@@ -5,16 +5,9 @@
 
 class Heap
 {
-  /* struct Node
-  {
-    Node* left;
-    Node* right;
-    int value;
-  }; */
   public:
   Heap();
-  //Node* max; //root
-  int* heap; //pointer to array of node pointers 
+  int* heap; //pointer to array of ints 
   void clear();
   void insert(int value);
   void sort();
